@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-12">
+        <div custom-loading [load]="load || loadReq" class="card">
+            <div class="sk-folding-cube sk-spinner">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap m-b-30">
+                    <div>
+                        <h3 *ngIf="nuevo" class="card-title"><span class="lstick"></span>AGREGAR COLONIA</h3>
+                        <h3 *ngIf="!nuevo" class="card-title"><span class="lstick"></span>EDITAR COLONIA</h3>
+                    </div>
+                </div>
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="agregarColonia( f )">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tipo de Asentamiento</label>
+                            <select class="custom-select col-12" [(ngModel)]="colonia.IdTipoAsentamiento" name="IdTipoAsentamiento" required>
+                                <option *ngFor="let ta of tipo_asentamiento" value="{{ta.IdTipoAsentamiento}}">{{ta.TipoAsentamiento}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Codigo Postal</label>
+                            <select class="custom-select col-12" [(ngModel)]="colonia.IdCodigoPostal" name="IdCodigoPostal" required>
+                                <option *ngFor="let codigo_postal of codigos_postal" value="{{codigo_postal.idCodigoPostal}}">{{codigo_postal.CodigoPostal}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sector</label>
+                            <select class="custom-select col-12" [(ngModel)]="colonia.idsector" name="idsector" required>
+                                <option *ngFor="let sector of sectores" value="{{sector.idsector}}">{{sector.sector}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Colonia</label>
+                            <input [(ngModel)]="colonia.Colonia" name="Colonia" type="text" class="form-control" placeholder="Ingrese el nombre del colonia" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col text-left">
+                            <button type="button" [routerLink]="['/colonias']" class="btn btn-danger">Cancelar</button>
+                        </div>
+                        <div class="col text-right">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar</button>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger mt-2" role="alert" *ngIf="errMsj">
+                        <small>{{errMsj}}</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

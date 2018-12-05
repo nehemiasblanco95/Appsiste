@@ -1,0 +1,7 @@
+Proceso de isntalacion en entorno local de desarrollo 
+
+1. En la raiz dle proyecto ejecutar npm install
+2. ejecutar ng serve -o
+3. en caso de error de @angular-devkit/core ejecutar
+npm i -D @angular-devkit/core
+Nota: versiones mas antigua remplazar i por install

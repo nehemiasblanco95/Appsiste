@@ -1,0 +1,648 @@
+<div class="row">
+    <div class="col-12">
+        <div custom-loading [load]="load" class="card">
+            <div class="sk-folding-cube sk-spinner">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap m-b-30">
+                    <div>
+                        <h3 class="card-title" (click)="estudio.ver()"><span class="lstick"></span>REGISTRO DE ESTUDIO SOCIOECONOMICO</h3>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form #estudioForm="ngForm" (ngSubmit)="onSubmit()">
+                            <div>
+                                <div class="col-md-12">
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">Datos Generales</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="nombre">Nombre del solicitante</label>
+                                                        <input id="nombre" name="nombre" class="form-control" required [(ngModel)]="estudio.nombre" #nombre="ngModel">
+                                                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger mt-2">
+                                                            <div *ngIf="nombre.errors.required"> El nombre es requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="paterno">Paterno del solicitante</label>
+                                                        <input id="paterno" name="paterno" class="form-control" required [(ngModel)]="estudio.paterno" #paterno="ngModel">
+                                                        <div *ngIf="paterno.invalid && (paterno.dirty || paterno.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="paterno.errors.required"> Apellido paterno requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="name">Materno del solicitante</label>
+                                                        <input id="materno" name="materno" class="form-control" [(ngModel)]="estudio.materno" #materno="ngModel">
+                                                        <div *ngIf="materno.invalid && (materno.dirty || materno.touched)" class="alert alert-danger  mt-2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="edad">Edad solicitante</label>
+                                                        <input id="edad" type="number" name="edad" class="form-control" required [(ngModel)]="estudio.edad" #edad="ngModel">
+                                                        <div *ngIf="edad.invalid && (edad.dirty || edad.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="edad.errors.required"> Campo requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="ine">No. de Credencial de elector</label>
+                                                        <input id="ine" type="text" name="ine" class="form-control" required [(ngModel)]="estudio.ine" #ine="ngModel">
+                                                        <div *ngIf="ine.invalid && (ine.dirty || ine.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="ine.errors.required"> Campo requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group font-bold">
+                                                        <label class="control-label">Fecha Nacimiento </label>
+                                                        <angular2-date-picker name="fecha_nacimiento" [(ngModel)]="estudio.fecha_nacimiento" [settings]="settings"></angular2-date-picker>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="curp">CURP</label>
+                                                        <input id="curp" type="text" name="curp" class="form-control" required [(ngModel)]="estudio.curp" #curp="ngModel">
+                                                        <div *ngIf="curp.invalid && (curp.dirty || curp.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="curp.errors.required"> Campo requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="idcolonia">Tipo de apoyo</label>
+                                                        <select id="idcolonia" name="idcolonia" class="form-control" required [(ngModel)]="estudio.idcolonia">
+      <option *ngFor="let estado of coCovil" [value]="estado.id">{{estado.name}}</option>
+    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card" *ngFor="let ben of estudio.beneficiario; let i = index; last as isLast">
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-wrap m-b-30">
+                                                        <div>
+                                                            <h3 class="card-title" (click)="estudio.ver()"><span class="lstick"></span>{{i +1}} .- Beneficiario</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="nombre">Nombre del beneficiario</label>
+                                                                <input id="nombre" name="nombre" class="form-control" required [(ngModel)]="ben.nombre" #nombre="ngModel">
+                                                                <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger mt-2">
+                                                                    <div *ngIf="nombre.errors.required"> El nombre es requerido. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="paterno">Paterno del beneficiario</label>
+                                                                <input id="paterno" name="paterno" class="form-control" required [(ngModel)]="ben.paterno" #paterno="ngModel">
+                                                                <div *ngIf="paterno.invalid && (paterno.dirty || paterno.touched)" class="alert alert-danger  mt-2">
+                                                                    <div *ngIf="paterno.errors.required"> Apellido paterno requerido. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="name">Materno del beneficiario</label>
+                                                                <input id="materno" name="materno" class="form-control" [(ngModel)]="ben.materno" #materno="ngModel">
+                                                                <div *ngIf="materno.invalid && (materno.dirty || materno.touched)" class="alert alert-danger  mt-2">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="edad">Edad beneficiario</label>
+                                                                <input id="edad" type="number" name="edad" class="form-control" required [(ngModel)]="ben.edad" #edad="ngModel">
+                                                                <div *ngIf="edad.invalid && (edad.dirty || edad.touched)" class="alert alert-danger  mt-2">
+                                                                    <div *ngIf="edad.errors.required"> Edad is required. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="curp">CURP beneficiario</label>
+                                                                <input id="curp" type="text" name="curp" class="form-control" required [(ngModel)]="ben.curp" #curp="ngModel">
+                                                                <div *ngIf="curp.invalid && (curp.dirty || curp.touched)" class="alert alert-danger  mt-2">
+                                                                    <div *ngIf="curp.errors.required"> Curp requerido. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group font-bold">
+                                                                <label class="control-label">Fecha nacimiento</label>
+                                                                <angular2-date-picker name="fecha_n" [(ngModel)]="ben.fecha_n" [settings]="settings"></angular2-date-picker>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="finado">Finado:</label>
+                                                            <select id="finado" name="finado" class="form-control" required [(ngModel)]="estudio.finado">
+                                                                <option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p class="m-t-30">
+                                                                <button class="btn btn-danger btn-circle" type="button" (click)="estudio.quitar_beneficiario()"><i class="fa fa-trash"></i></button>
+                                                                <button *ngIf="isLast" class="btn btn-success btn-circle" type="button" (click)="estudio.agregar_beneficiario()"><i
+        class="fa fa-plus"></i></button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">Direccion</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="calle">Calle</label>
+                                                        <input id="calle" name="calle" class="form-control" required [(ngModel)]="estudio.calle" #calle="ngModel">
+                                                        <div *ngIf="calle.invalid && (calle.dirty || calle.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="calle.errors.required"> Calle requerida. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label for="numero_exterior">Num. Ext. Manzana</label>
+                                                        <input id="numero_exterior" name="numero_exterior" class="form-control" required [(ngModel)]="estudio.numero_exterior" #numero_exterior="ngModel">
+                                                        <div *ngIf="numero_exterior.invalid && (numero_exterior.dirty || numero_exterior.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="numero_exterior.errors.required"> Numero Ext. requerido. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+
+                                                    <div class="form-group">
+                                                        <label for="numero_interior">Num. Int. Lote.</label>
+                                                        <input id="numero_interior" name="numero_interior" class="form-control" required [(ngModel)]="estudio.numero_interior" #numero_interior="ngModel">
+                                                        <div *ngIf="numero_interior.invalid && (numero_interior.dirty || numero_interior.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="numero_interior.errors.required">Num. Int. Lote.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="entre_calles">Entre Calles.</label>
+                                                        <input id="entre_calles" name="entre_calles" class="form-control" required [(ngModel)]="estudio.entre_calles" #entre_calles="ngModel">
+                                                        <div *ngIf="entre_calles.invalid && (entre_calles.dirty || entre_calles.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="entre_calles.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="idcolonia">Colonia</label>
+                                                        <select id="idcolonia" name="idcolonia" class="form-control" required [(ngModel)]="estudio.idcolonia"><option *ngFor="let estado of coCovil" [value]="estado.id">{{estado.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="cp">C.P</label>
+                                                        <input id="cp" readonly name="cp" class="form-control" required [(ngModel)]="estudio.cp" #cp="ngModel">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="referencia">Referencia de de Ubicación (junto a, frente a, atras de o cerca de)</label>
+                                                        <input id="referencia" name="referencia" class="form-control" required [(ngModel)]="estudio.referencia" #referencia="ngModel">
+                                                        <div *ngIf="referencia.invalid && (referencia.dirty || referencia.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="referencia.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">Lugar de Nacimiento</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+                                            <div class="row">
+                                                <!-- <div class="col-md-12">
+                                                    <h3 class="text-primary font-weight-bold">Lugar de Nacimiento</h3>
+                                                </div> -->
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="nacimiento_localidad">Localidad</label>
+                                                        <input id="nacimiento_localidad" name="nacimiento_localidad" class="form-control" required [(ngModel)]="estudio.nacimiento_localidad" #nacimiento_localidad="ngModel">
+                                                        <div *ngIf="nacimiento_localidad.invalid && (nacimiento_localidad.dirty || nacimiento_localidad.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="nacimiento_localidad.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="nacimiento_municipio">Municipio</label>
+                                                        <input id="nacimiento_municipio" name="nacimiento_municipio" class="form-control" required [(ngModel)]="estudio.nacimiento_municipio" #nacimiento_municipio="ngModel">
+                                                        <div *ngIf="nacimiento_municipio.invalid && (nacimiento_municipio.dirty || nacimiento_municipio.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="nacimiento_municipio.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="entidad">Entidad</label>
+                                                        <input id="entidad" name="entidad" class="form-control" required [(ngModel)]="estudio.entidad" #entidad="ngModel">
+                                                        <div *ngIf="entidad.invalid && (entidad.dirty || entidad.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="entidad.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pais">País</label>
+                                                        <input id="pais" name="pais" class="form-control" required [(ngModel)]="estudio.pais" #pais="ngModel">
+                                                        <div *ngIf="pais.invalid && (pais.dirty || pais.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pais.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label for="idestado_civil">Estado Civil:</label>
+                                                    <select id="idestado_civil" name="idestado_civil" class="form-control" required [(ngModel)]="estudio.idestado_civil">
+                                                        <option *ngFor="let estado of coCovil" [value]="estado.id">{{estado.name}}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="leer_escribir">Sabe Leer y Escribir:</label>
+                                                    <select id="leer_escribir" name="leer_escribir" class="form-control" required [(ngModel)]="estudio.leer_escribir"><option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option></select>
+                                                </div>
+                                            </div>
+                                            <div class="row m-t-10">
+                                                <div class="col-md-3">
+                                                    <label for="discapacidad">Cuenta con discapacidad:</label>
+                                                    <select id="discapacidad" name="discapacidad" class="form-control" required [(ngModel)]="estudio.discapacidad"><option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option></select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="discapacidad_especifique">Tipo de discapacida</label>
+                                                        <input id="discapacidad_especifique" name="discapacidad_especifique" class="form-control" required [(ngModel)]="estudio.discapacidad_especifique" #discapacidad_especifique="ngModel">
+                                                        <div *ngIf="discapacidad_especifique.invalid && (discapacidad_especifique.dirty || discapacidad_especifique.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="discapacidad_especifique.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="telefono">Teléfono particular</label>
+                                                        <input id="telefono" name="telefono" class="form-control" required [(ngModel)]="estudio.telefono" #telefono="ngModel">
+                                                        <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="telefono.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="telefono_familia">Teléfono Familia</label>
+                                                        <input id="telefono_familia" name="telefono_familia" class="form-control" required [(ngModel)]="estudio.telefono_familia" #telefono_familia="ngModel">
+                                                        <div *ngIf="telefono_familia.invalid && (telefono_familia.dirty || telefono_familia.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="telefono_familia.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="celular">Teléfono Celular</label>
+                                                        <input id="celular" name="celular" class="form-control" required [(ngModel)]="estudio.celular" #celular="ngModel">
+                                                        <div *ngIf="celular.invalid && (celular.dirty || celular.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="celular.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="col-md-12">
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">En esta familia</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="personas_sueldo">¿Cuantas personas reciben sueldo?</label>
+                                                        <input id="personas_sueldo" name="personas_sueldo" class="form-control" required [(ngModel)]="estudio.personas_sueldo" #personas_sueldo="ngModel">
+                                                        <div *ngIf="personas_sueldo.invalid && (personas_sueldo.dirty || personas_sueldo.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="personas_sueldo.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="sueldo_mensual_familiar">¿Entre todos cúanto ganan al mes?</label>
+                                                        <input id="sueldo_mensual_familiar" name="sueldo_mensual_familiar" class="form-control" required [(ngModel)]="estudio.sueldo_mensual_familiar" #sueldo_mensual_familiar="ngModel">
+                                                        <div *ngIf="sueldo_mensual_familiar.invalid && (sueldo_mensual_familiar.dirty || sueldo_mensual_familiar.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="sueldo_mensual_familiar.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p class="font-weight-bold">¿Cuánto destinan al mes en el pago de...?</p>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_agua">Agua</label>
+                                                        <input id="pago_agua" name="pago_agua" class="form-control" required [(ngModel)]="estudio.pago_agua" #pago_agua="ngModel">
+                                                        <div *ngIf="pago_agua.invalid && (pago_agua.dirty || pago_agua.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_agua.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_luz">Luz</label>
+                                                        <input id="pago_luz" name="pago_luz" class="form-control" required [(ngModel)]="estudio.pago_luz" #pago_luz="ngModel">
+                                                        <div *ngIf="pago_luz.invalid && (pago_luz.dirty || pago_luz.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_luz.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_comida">Comida</label>
+                                                        <input id="pago_comida" name="pago_comida" class="form-control" required [(ngModel)]="estudio.pago_comida" #pago_comida="ngModel">
+                                                        <div *ngIf="pago_comida.invalid && (pago_comida.dirty || pago_comida.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_comida.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_ropa">Ropa</label>
+                                                        <input id="pago_ropa" name="pago_ropa" class="form-control" required [(ngModel)]="estudio.pago_ropa" #pago_ropa="ngModel">
+                                                        <div *ngIf="pago_ropa.invalid && (pago_ropa.dirty || pago_ropa.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_ropa.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_pasajes">Pasajes</label>
+                                                        <input id="pago_pasajes" name="pago_pasajes" class="form-control" required [(ngModel)]="estudio.pago_pasajes" #pago_pasajes="ngModel">
+                                                        <div *ngIf="pago_pasajes.invalid && (pago_pasajes.dirty || pago_pasajes.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_pasajes.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_renta">Renata</label>
+                                                        <input id="pago_renta" name="pago_renta" class="form-control" required [(ngModel)]="estudio.pago_renta" #pago_renta="ngModel">
+                                                        <div *ngIf="pago_renta.invalid && (pago_renta.dirty || pago_renta.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_renta.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_medicamentos">Medicamentos</label>
+                                                        <input id="pago_medicamentos" name="pago_medicamentos" class="form-control" required [(ngModel)]="estudio.pago_medicamentos" #pago_medicamentos="ngModel">
+                                                        <div *ngIf="pago_medicamentos.invalid && (pago_medicamentos.dirty || pago_medicamentos.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_medicamentos.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_estudios">Estudios</label>
+                                                        <input id="pago_estudios" name="pago_estudios" class="form-control" required [(ngModel)]="estudio.pago_estudios" #pago_estudios="ngModel">
+                                                        <div *ngIf="pago_estudios.invalid && (pago_estudios.dirty || pago_estudios.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_estudios.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="pago_otros_gastos">Otros Pagos</label>
+                                                        <input id="pago_otros_gastos" name="pago_otros_gastos" class="form-control" required [(ngModel)]="estudio.pago_otros_gastos" #pago_otros_gastos="ngModel">
+                                                        <div *ngIf="pago_otros_gastos.invalid && (pago_otros_gastos.dirty || pago_otros_gastos.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="pago_otros_gastos.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">Caracteristicas y servicios con los que cuenta la vivienda</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="fuente_ingresos">Tiene Fuentes de ingresos:</label>
+                                                    <select id="fuente_ingresos" name="fuente_ingresos" class="form-control" required [(ngModel)]="estudio.fuente_ingresos">
+                                                            <option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="monto_mensual">Monto mensual</label>
+                                                        <input id="monto_mensual" name="monto_mensual" class="form-control" required [(ngModel)]="estudio.monto_mensual" #monto_mensual="ngModel">
+                                                        <div *ngIf="monto_mensual.invalid && (monto_mensual.dirty || monto_mensual.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="monto_mensual.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="fuente_ingresos_otro">Tiene otra Fuente de ingresos:</label>
+                                                    <select id="fuente_ingresos_otro" name="fuente_ingresos_otro" class="form-control" required [(ngModel)]="estudio.fuente_ingresos_otro">
+                                                        <option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="monto_mensual_otro">Monto mensual Otra Fuente</label>
+                                                        <input id="monto_mensual_otro" name="monto_mensual_otro" class="form-control" required [(ngModel)]="estudio.monto_mensual_otro" #monto_mensual_otro="ngModel">
+                                                        <div *ngIf="monto_mensual_otro.invalid && (monto_mensual_otro.dirty || monto_mensual_otro.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="monto_mensual_otro.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Cuento con los siguientes seguros:</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="custom-control custom-checkbox"><input name="imss" [(ngModel)]="estudio.preg_seguros.imss" type="checkbox" class="custom-control-input"><span class="custom-control-indicator"></span><span class="custom-control-description">IMSS</span> </label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="issste" [(ngModel)]="estudio.preg_seguros.issste" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">ISSSTE</span></label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="seguro_popular" [(ngModel)]="estudio.preg_seguros.seguro_popular" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description">Seguro Popular</span> </label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="pemex" [(ngModel)]="estudio.preg_seguros.pemex" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">Pemex</span></label>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="seguro_especifique">Otro especifique</label>
+                                                        <input id="seguro_especifique" name="seguro_especifique" class="form-control" required [(ngModel)]="estudio.seguro_especifique" #seguro_especifique="ngModel">
+                                                        <div *ngIf="seguro_especifique.invalid && (seguro_especifique.dirty || seguro_especifique.touched)" class="alert alert-danger  mt-2">
+                                                            <div *ngIf="seguro_especifique.errors.required">Campo requerido.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="idvivienda">Su vivienda es:</label>
+                                                        <select id="idvivienda" name="idvivienda" class="form-control" required [(ngModel)]="estudio.idvivienda">
+                                                            <option *ngFor="let estado of coVivienda" [value]="estado.id">{{estado.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="">Muros</label> <br>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="custom-control custom-checkbox"><input name="imss" [(ngModel)]="estudio.preg_seguros.imss" type="checkbox" class="custom-control-input"><span class="custom-control-indicator"></span><span class="custom-control-description">Lamina</span></label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="issste" [(ngModel)]="estudio.preg_seguros.issste" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">Madera</span></label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="seguro_popular" [(ngModel)]="estudio.preg_seguros.seguro_popular" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description">Block Popular</span> </label>
+
+                                                        <label class="custom-control custom-checkbox"><input name="pemex" [(ngModel)]="estudio.preg_seguros.pemex" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">Ladrillo</span></label>
+                                                        <label class="custom-control custom-checkbox"><input name="pemex" [(ngModel)]="estudio.preg_seguros.pemex" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">Carton</span></label>
+                                                        <label class="custom-control custom-checkbox"><input name="pemex" [(ngModel)]="estudio.preg_seguros.pemex" type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span><span class="custom-control-description">Hule</span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">Techos</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coTechos" [(ngModel)]="techosSeleccionados.respuesta" name="techosSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">Pisos</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coPisos" [(ngModel)]="pisosSeleccionados.respuestas" name="pisosSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">Vivienda cuenta con</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coVivienda2" [(ngModel)]="vivienda2Seleccionados.respuestas" name="vivienda2Seleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                                            (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">En esta vivienda el agua para beber es de</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coAgua" [(ngModel)]="aguaSeleccionados.respuestas" name="aguaSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="iddrenaje">Esta vivienda tiene drenaje o desague conectado a</label>
+                                                        <select id="iddrenaje" name="iddrenaje" class="form-control" required [(ngModel)]="estudio.iddrenaje">
+                                                            <option *ngFor="let estado of coDrenaje" [value]="estado.id">{{estado.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">En esta vivienda se obtiene luz de:</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coLuz" [(ngModel)]="luzSeleccionados.respuestas" name="luzSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="discapacidad">¿En esta vivienda tienen huerto familiar?</label>
+                                                        <select id="discapacidad" name="discapacidad" class="form-control" required [(ngModel)]="estudio.discapacidad">
+                                                            <option *ngFor="let estado of coSiNo" [value]="estado.id">{{estado.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- dddd -->
+                                    <div class="card text-white mb-3">
+                                        <div class="card-header bg-primary font-medium">Equipamiento de vivienda</div>
+                                        <div class="card-body text-dark" style="background-color: whitesmoke;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">Su hogar cuenta con:</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coHogar" [(ngModel)]="hogarSeleccionados.respuestas" name="hogarSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="alterEgo">Combustible que utiliza para cocinar</label>
+                                                    <div class="form-group">
+                                                        <ng-multiselect-dropdown id="alterEgo" [placeholder]="'Seleccione una opcion'" [data]="coCombustible" [(ngModel)]="combustibleSeleccionados.respuestas" name="combustibleSeleccionados.respuestas" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                                            (onSelectAll)="onSelectAll($event)">
+                                                        </ng-multiselect-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Observaciones</label>
+                                                        <textarea class="form-control" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary pull-right">Guardar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
