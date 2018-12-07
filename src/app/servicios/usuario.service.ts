@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 // import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL_SERVICIOS, APIKEY } from '../../config/config';
-import { Usuario } from '../../modelos/usuario.model';
+import { URL_SERVICIOS, APIKEY } from '../config/config';
+import { Usuario } from '../modelos/usuario.model';
 
-import { TOKEN } from '../../config/config';
+import { TOKEN } from '../config/config';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 
 import { Router } from '@angular/router';
 import { JwtHelper } from 'angular2-jwt';
-import { Roles } from '../../modelos/roles.model';
+import { Roles } from '../modelos/roles.model';
 declare var swal: any;
 
 

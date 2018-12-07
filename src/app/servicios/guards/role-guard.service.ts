@@ -8,7 +8,6 @@ export class RoleGuardService implements CanActivate {
     jwtHelper: JwtHelper = new JwtHelper();
     constructor(public auth: AuthService, public router: Router) { }
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        const expectedRole = route.data.expectedRole;
         // console.log(route);
         const token = this.auth.getToken();
         // decode the token to get its payload
@@ -17,19 +16,17 @@ export class RoleGuardService implements CanActivate {
         let validRole: boolean;
 
         switch(route.routeConfig.path){
-            case 'seguimiento': validRole = rolService.seguimiento;
+            case 'usuarios': validRole = rolService.config;
             break;
-            case 'catalogos': validRole = rolService.catalogos;
+            case 'aulas': validRole = rolService.catalogos;
             break;
-            case 'reportes': validRole = rolService.reportes;
+            case 'carreras': validRole = rolService.catalogos;
             break;
-            case 'usuarios': validRole = true;
+            case 'clases': validRole = rolService.catalogos;
             break;
-            case 'roles': validRole = rolService.config;
+            case 'maestros': validRole = rolService.catalogos;
             break;
-            case 'agregar': validRole = rolService.reg_solicitud;
-            break;
-            case 'editar/:idsolicitud': validRole = rolService.edi_solicitud;
+            case 'materias': validRole = rolService.catalogos;
             break;
             default: validRole = true;
             break

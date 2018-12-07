@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import { LoginGuard, RoleGuardService, UsuarioService, AuthService, EstudioSocioeconomicoService, ApoyosService, AreasService, DiscapacidadesService } from './servicio.index';
-import { CiacService } from './ciac.service';
+import { LoginGuard, RoleGuardService, UsuarioService, AuthService} from './servicio.index';
 
 
 @NgModule({
@@ -16,12 +15,7 @@ import { CiacService } from './ciac.service';
         LoginGuard,
         UsuarioService,
         AuthService,
-        CiacService,
         RoleGuardService, 
-        EstudioSocioeconomicoService,
-        ApoyosService,
-        AreasService,
-        DiscapacidadesService
     ],
     declarations: []
 })

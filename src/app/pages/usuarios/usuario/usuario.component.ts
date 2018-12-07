@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsuarioService } from '../../../servicios/usuario/usuario.service';
+import { UsuarioService } from '../../../servicios/usuario.service';
 
 @Component({
 	selector: 'app-usuario',

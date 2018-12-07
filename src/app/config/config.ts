@@ -1,4 +1,4 @@
-export const URL_SERVICIOS = 'http://localhost/beneficiariosdif/app_ws/Beneficiarios';
-export const URL_SERVICIOS_APP = 'http://localhost/beneficiariosdif/app_ws/Beneficiarios';
-export const APIKEY = 'dc176c2d6fc496288e6ee81e35c8ffe3';
+export const URL_SERVICIOS = 'http://localhost/appsiste/app_ws/Appsiste';
+export const URL_SERVICIOS_APP = 'http://localhost/appsiste/app_ws/Appsiste';
+export const APIKEY = 'f0a44d68776670eaee20738ee5056cf2';
 export const TOKEN = 'tkn_df';

@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbPanelChangeEvent, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { UsuarioService } from '../../servicios/usuario.service';
 import { Router } from '@angular/router';
 import { JwtHelper } from 'angular2-jwt';
 import { Token } from '../../modelos/token.model';

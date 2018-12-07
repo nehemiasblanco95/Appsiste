@@ -24,49 +24,6 @@ export const Approutes: Routes = [
                 path: 'usuarios',
                 canActivate: [RoleGuard],
                 loadChildren: './pages/usuarios/usuarios.module#UsuariosModule',
-                data: {
-                    usuarios: ['3', '2', '7']
-                }
-            },
-            {
-                path: 'colonias',
-                canActivate: [RoleGuard],
-                loadChildren: './pages/colonias/colonias.module#ColoniasModule',
-                data: {
-                    expectedRole: ['3', '2', '7']
-                }
-            },
-            {
-                path: 'esocioeconomico',
-                canActivate: [RoleGuard],
-                loadChildren: './pages/estudio-socioeconomico/estudio-socioeconomico.module#EstudioSocioeconomicoModule',
-                data: {
-                    expectedRole: ['3', '2', '7']
-                }
-            },
-            {
-                path: 'apoyos',
-                canActivate: [RoleGuard],
-                loadChildren: './pages/apoyos/apoyos.module#ApoyosModule',
-                data: {
-                    expectedRole: ['3', '2', '7']
-                }
-            },
-            {
-                path: 'areas',
-                canActivate: [RoleGuard],
-                loadChildren: './pages/areas/areas.module#AreasModule',
-                data: {
-                    expectedRole: ['3', '2', '7']
-                }
-            },
-            {
-                path: 'discapacidades',
-                canActivate: [RoleGuard],
-                loadChildren: './pages/discapacidades/discapacidades.module#DiscapacidadesModule',
-                data: {
-                    expectedRole: ['3', '2', '7']
-                }
             }
         ]
     },

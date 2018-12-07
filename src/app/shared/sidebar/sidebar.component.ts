@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { UsuarioService } from '../../servicios/usuario.service';
 declare var $: any;
 @Component({
     selector: 'ap-sidebar',

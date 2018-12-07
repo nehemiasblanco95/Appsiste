@@ -8,7 +8,7 @@ include APPPATH . '/third_party/jwt/SignatureInvalidException.php';
 
 use Firebase\JWT\JWT;
 
-class Beneficiarios extends REST_Controller
+class Appsiste extends REST_Controller
 {
 
     public function __construct()
